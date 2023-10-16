@@ -1,4 +1,4 @@
-import MainWindow from './MainWindow/MainWindow';
+import MainWindow from './pages/MainWindow/MainWindow';
 import {AppProps} from './AppProps';
 
 function App(props: AppProps){

@@ -4,7 +4,7 @@ function AddReview(){
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="../../markup/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src="../../../markup/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -32,7 +32,7 @@ function AddReview(){
           <ul className="user-block">
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src="../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                <img src="../../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
               </div>
             </li>
             <li className="user-block__item">
@@ -42,14 +42,14 @@ function AddReview(){
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="../../markup/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+          <img src="../../../markup/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
             height="327"
           />
         </div>
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form action="AddReview#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
               <input className="rating__input" id="star-10" type="radio" name="rating" value="10"/>

@@ -1,4 +1,4 @@
-import {MainWindowProps} from './MainWindow/MainWindowProps';
+import {MainWindowProps} from './pages/MainWindow/MainWindowProps';
 
 export type AppProps = {
   mainWindowData: MainWindowProps;

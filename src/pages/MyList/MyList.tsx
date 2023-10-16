@@ -14,7 +14,7 @@ function MyList(){
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src="../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src="../../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
             </div>
           </li>
           <li className="user-block__item">
@@ -29,7 +29,7 @@ function MyList(){
         <div className="catalog__films-list">
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              <img src="../../../markup/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
                 alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"
               />
             </div>
@@ -42,7 +42,7 @@ function MyList(){
 
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
+              <img src="../../../markup/img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
@@ -51,7 +51,7 @@ function MyList(){
 
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
+              <img src="../../../markup/img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <a className="small-film-card__link" href="film-page.html">Macbeth</a>
@@ -60,7 +60,7 @@ function MyList(){
 
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/aviator.jpg" alt="Aviator" width="280" height="175"/>
+              <img src="../../../markup/img/aviator.jpg" alt="Aviator" width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <a className="small-film-card__link" href="film-page.html">Aviator</a>
@@ -71,7 +71,7 @@ function MyList(){
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
               <img
-                src="../../markup/img/we-need-to-talk-about-kevin.jpg" alt="We need to talk about Kevin" width="280"
+                src="../../../markup/img/we-need-to-talk-about-kevin.jpg" alt="We need to talk about Kevin" width="280"
                 height="175"
               />
             </div>
@@ -82,7 +82,7 @@ function MyList(){
 
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/what-we-do-in-the-shadows.jpg" alt="What We Do in the Shadows" width="280" height="175"/>
+              <img src="../../../markup/img/what-we-do-in-the-shadows.jpg" alt="What We Do in the Shadows" width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <a className="small-film-card__link" href="film-page.html">What We Do in the Shadows</a>
@@ -91,7 +91,7 @@ function MyList(){
 
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/revenant.jpg" alt="Revenant" width="280" height="175"/>
+              <img src="../../../markup/img/revenant.jpg" alt="Revenant" width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <a className="small-film-card__link" href="film-page.html">Revenant</a>
@@ -100,7 +100,7 @@ function MyList(){
 
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/johnny-english.jpg" alt="Johnny English" width="280" height="175"/>
+              <img src="../../../markup/img/johnny-english.jpg" alt="Johnny English" width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <a className="small-film-card__link" href="film-page.html">Johnny English</a>
@@ -110,7 +110,7 @@ function MyList(){
 
           <article className="small-film-card catalog__films-card">
             <div className="small-film-card__image">
-              <img src="../../markup/img/shutter-island.jpg" alt="Shutter Island" width="280" height="175"/>
+              <img src="../../../markup/img/shutter-island.jpg" alt="Shutter Island" width="280" height="175"/>
             </div>
             <h3 className="small-film-card__title">
               <a className="small-film-card__link" href="film-page.html">Shutter Island</a>

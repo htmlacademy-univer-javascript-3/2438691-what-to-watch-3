@@ -4,7 +4,7 @@ function MoviePage(){
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="../../markup/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src="../../../markup/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -21,7 +21,7 @@ function MoviePage(){
             <ul className="user-block">
               <li className="user-block__item">
                 <div className="user-block__avatar">
-                  <img src="../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                  <img src="../../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
                 </div>
               </li>
               <li className="user-block__item">
@@ -62,7 +62,7 @@ function MoviePage(){
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src="../../markup/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+                src="../../../markup/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
                 height="327"
               />
             </div>
@@ -71,13 +71,13 @@ function MoviePage(){
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
+                    <a href="MoviePage#" className="film-nav__link">Overview</a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
+                    <a href="MoviePage#" className="film-nav__link">Details</a>
                   </li>
                   <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
+                    <a href="MoviePage#" className="film-nav__link">Reviews</a>
                   </li>
                 </ul>
               </nav>
@@ -121,7 +121,7 @@ function MoviePage(){
             <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
                 <img
-                  src="../../markup/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+                  src="../../../markup/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
                   alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"
                 />
               </div>
@@ -134,7 +134,7 @@ function MoviePage(){
 
             <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
-                <img src="../../markup/img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
+                <img src="../../../markup/img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
               </div>
               <h3 className="small-film-card__title">
                 <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
@@ -143,7 +143,7 @@ function MoviePage(){
 
             <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
-                <img src="../../markup/img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
+                <img src="../../../markup/img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
               </div>
               <h3 className="small-film-card__title">
                 <a className="small-film-card__link" href="film-page.html">Macbeth</a>
@@ -152,7 +152,7 @@ function MoviePage(){
 
             <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
-                <img src="../../markup/img/aviator.jpg" alt="Aviator" width="280" height="175"/>
+                <img src="../../../markup/img/aviator.jpg" alt="Aviator" width="280" height="175"/>
               </div>
               <h3 className="small-film-card__title">
                 <a className="small-film-card__link" href="film-page.html">Aviator</a>

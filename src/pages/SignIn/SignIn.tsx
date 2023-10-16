@@ -14,7 +14,7 @@ function SignIn(){
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="SignIn#" className="sign-in__form">
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
