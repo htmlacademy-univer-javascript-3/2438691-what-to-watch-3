@@ -2,7 +2,7 @@
 import {FilmCard} from '../FilmCard/FilmCard';
 import {MainWindowProps} from './MainWindowProps';
 
-function MainWindow(props: MainWindowProps) {
+function MainPage(props: MainWindowProps) {
   const {promoFilmTitle, promoFilmDate, promoFilmGenre, promoFilmPoster} = props;
   return (
     <div>
@@ -172,4 +172,4 @@ function MainWindow(props: MainWindowProps) {
   );
 }
 
-export default MainWindow;
+export default MainPage;
