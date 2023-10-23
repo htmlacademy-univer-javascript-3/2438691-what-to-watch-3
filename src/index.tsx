@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import {MainWindowProps} from './MainWindow/MainWindowProps';
+import {MainPageProps} from './pages/MainPage/MainPageProps';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-const mainWindowData: MainWindowProps = {
+const mainWindowData: MainPageProps = {
   promoFilmDate: '2014',
   promoFilmGenre: 'Drama',
   promoFilmPoster: <img src="../markup/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />,
