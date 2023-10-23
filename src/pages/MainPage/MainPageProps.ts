@@ -1,4 +1,4 @@
-export type MainWindowProps =
+export type MainPageProps =
   {
     promoFilmTitle: string;
     promoFilmDate: string;

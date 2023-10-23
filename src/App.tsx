@@ -1,11 +1,14 @@
-import MainPage from './MainWindow/MainPage';
 import {AppProps} from './AppProps';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import SignIn from "./SignIn/SignIn";
-import MyList from "./MyList/MyList";
-import MoviePage from "./MoviePage/MoviePage";
-import Player from "./Player/Player";
-import AddReview from "./AddReview/AddReview";
+import MainPage from './pages/MainPage/MainPage';
+
+import SignIn from './pages/SignIn/SignIn';
+import MyList from './pages/MyList/MyList';
+import MoviePage from './pages/MoviePage/MoviePage';
+import Player from './pages/Player/Player';
+import AddReview from './pages/AddReview/AddReview';
+import {NotFoundPage} from './pages/NotFoundPage';
+import PrivateRoute from '@utils/pages/PrivateRoute';
 
 function App(props: AppProps){
   const {mainWindowData} = props;
@@ -23,10 +26,13 @@ function App(props: AppProps){
           }
           />
           <Route path={'login'} element={<SignIn/>}/>
-          <Route path={'mylist'} element={<MyList/>}/>
+          <PrivateRoute>
+            <Route path={'mylist'} element={<MyList/>}/>
+          </PrivateRoute>
           <Route path={'films/:id'} element={<MoviePage/>}/>
           <Route path={'films/:id/review'} element={<AddReview/>}/>
           <Route path={'player/:id'} element={<Player/>}/>
+          <Route path={'*'} element={<NotFoundPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
