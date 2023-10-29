@@ -1,17 +1,21 @@
+import {MovieInfo} from '@utils/MovieInfo';
+import {Link} from 'react-router-dom';
+import {Routes} from '@utils/Routes';
 
+export type FilmCardProps = Omit<MovieInfo, 'genre' | 'year' | 'playerLink' > & {setActive: () => void}
+export function FilmCard(props: FilmCardProps){
 
-export function FilmCard(){
   return(
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseOver={props.setActive}>
       <div className="small-film-card__image">
-        <img src="../../../markup/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-          alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"
+        <img src={`../../markup/img/${props.iconName}.jpg`}
+          alt={props.title} width="280" height="175"
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of
-          Grindelwald
-        </a>
+        <Link to={`${Routes.Films}/${props.id}`} className="small-film-card__link">
+          {props.title}
+        </Link>
       </h3>
     </article>
   );

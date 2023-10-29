@@ -1,4 +1,13 @@
-function MoviePage(){
+import {Link} from 'react-router-dom';
+import {Routes} from '@utils/Routes';
+import {MovieInfo} from '@utils/MovieInfo';
+import {Logo} from '@utils/components/logo/logo';
+
+export type MoviePageProps = {
+  film: MovieInfo;
+}
+function MoviePage(props: MoviePageProps){
+  const {film} = props;
   return (
     <>
       <section className="film-card film-card--full">
@@ -10,13 +19,7 @@ function MoviePage(){
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
+            <Logo/>
 
             <ul className="user-block">
               <li className="user-block__item">
@@ -32,10 +35,10 @@ function MoviePage(){
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{film.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.year}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -52,7 +55,7 @@ function MoviePage(){
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to={`${Routes.Films}/${film.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>

@@ -1,12 +1,17 @@
-
-import {FilmCard} from '../../components/FilmCard/FilmCard';
 import {MainPageProps} from './MainPageProps';
+import {FilmList} from '@utils/components/FilmList/FilmList';
+import {Logo} from '@utils/components/logo/logo';
 
 function MainPage(props: MainPageProps) {
-  const {promoFilmTitle, promoFilmDate, promoFilmGenre, promoFilmPoster} = props;
+  const {
+    promoFilmTitle,
+    promoFilmDate,
+    promoFilmGenre,
+    promoFilmPoster,
+    films
+  } = props;
   return (
     <div>
-
       <section className="film-card">
         <div className="film-card__bg">
           <img src="../../../markup/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -15,13 +20,7 @@ function MainPage(props: MainPageProps) {
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo/>
 
           <ul className="user-block">
             <li className="user-block__item">
@@ -104,49 +103,7 @@ function MainPage(props: MainPageProps) {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-
-            <FilmCard/>
-          </div>
+          <FilmList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
