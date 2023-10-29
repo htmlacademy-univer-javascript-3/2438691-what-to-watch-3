@@ -1,4 +1,4 @@
-import {MainPageProps} from './pages/MainPage/MainPageProps';
+import {MainPageProps} from '@utils/pages/MainPage/MainPageProps';
 
 export type AppProps = {
   mainWindowData: MainPageProps;

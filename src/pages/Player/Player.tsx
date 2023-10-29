@@ -1,7 +1,11 @@
-function Player(){
+export type PlayerProps = {
+  playerLink: string;
+}
+
+export function Player(props: PlayerProps){
   return (
     <div className="player">
-      <video src="src/components/Player#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={props.playerLink} className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit">Exit</button>
 
