@@ -8,11 +8,19 @@ export type FilmListProps = {
 
 export function FilmList(props: FilmListProps){
   const {films} = props;
-  const [_, setActiveMovie] = useState<MovieInfo>();
+  const [, setActiveMovie] = useState<MovieInfo>();
   return (
     <div className="catalog__films-list">
       {films.map((elem) =>
-        <FilmCard key={elem.id} id={elem.id} title={elem.title} iconName={elem.iconName} setActive={() => setActiveMovie(elem)}/>)}
+        <FilmCard
+          key={elem.id}
+          id={elem.id}
+          title={elem.title}
+          iconName={elem.iconName}
+          playerLink={elem.playerLink}
+          setActive={() => setActiveMovie(elem)}
+        />
+      )}
     </div>
   );
 }

@@ -1,22 +1,40 @@
 import {MovieInfo} from '@utils/MovieInfo';
 import {Link} from 'react-router-dom';
-import {Routes} from '@utils/Routes';
+import {useEffect, useState} from 'react';
+import {VideoPlayer} from '@utils/components/VideoPlayer';
 
-export type FilmCardProps = Omit<MovieInfo, 'genre' | 'year' | 'playerLink' > & {setActive: () => void}
-export function FilmCard(props: FilmCardProps){
+export type FilmCardProps = Omit<MovieInfo, 'genre' | 'year'> & {setActive: () => void}
+const SECOND = 1000;
+export function FilmCard(props: FilmCardProps) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [needToActiveVideo, setNeedToActiveVideo] = useState(false);
 
+  useEffect(() => {
+    if (needToActiveVideo) {
+      const timeout = setTimeout(() => setIsPlaying(true), SECOND);
+      return () => clearTimeout(timeout);
+    }
+  }, [needToActiveVideo, setIsPlaying]);
   return(
-    <article className="small-film-card catalog__films-card" onMouseOver={props.setActive}>
-      <div className="small-film-card__image">
-        <img src={`../../markup/img/${props.iconName}.jpg`}
-          alt={props.title} width="280" height="175"
-        />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link to={`${Routes.Films}/${props.id}`} className="small-film-card__link">
-          {props.title}
-        </Link>
-      </h3>
-    </article>
+    <Link
+      className="small-film-card__link small-film-card catalog__films-card"
+      to={`/films/${props.id}`}
+      onMouseOver={() => {
+        props.setActive();
+        setNeedToActiveVideo(true);
+      }}
+      onMouseOut={() => {
+        setNeedToActiveVideo(false);
+        setIsPlaying(false);
+      }}
+    >
+      <VideoPlayer
+        isPlaying={isPlaying}
+        isMuted
+        src={props.playerLink}
+        poster={'markup/img/bg-the-grand-budapest-hotel.jpg'}
+      />
+      {props.title}
+    </Link>
   );
 }
