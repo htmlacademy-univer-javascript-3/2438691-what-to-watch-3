@@ -1,6 +1,9 @@
 import {MainPageProps} from './MainPageProps';
 import {FilmList} from '@utils/components/FilmList/FilmList';
 import {Logo} from '@utils/components/logo/logo';
+import {GenreList} from '@utils/components/genre-list/genre-list.tsx';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
+import {getFilmsByGenre} from '@utils/store/getFilmsByGenre.ts';
 
 function MainPage(props: MainPageProps) {
   const {
@@ -10,6 +13,8 @@ function MainPage(props: MainPageProps) {
     promoFilmPoster,
     films
   } = props;
+
+  const currentGenre = useAppSelector((state) => state.genre);
   return (
     <div>
       <section className="film-card">
@@ -70,40 +75,9 @@ function MainPage(props: MainPageProps) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="MainPage#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="MainPage#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenreList/>
 
-          <FilmList films={films}/>
+          <FilmList films={getFilmsByGenre(films, currentGenre)}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

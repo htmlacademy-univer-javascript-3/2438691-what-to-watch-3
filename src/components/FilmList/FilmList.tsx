@@ -11,7 +11,7 @@ export function FilmList(props: FilmListProps){
   const [, setActiveMovie] = useState<MovieInfo>();
   return (
     <div className="catalog__films-list">
-      {films.map((elem) =>
+      {films.map((elem) => (
         <FilmCard
           key={elem.id}
           id={elem.id}
@@ -20,7 +20,7 @@ export function FilmList(props: FilmListProps){
           playerLink={elem.playerLink}
           setActive={() => setActiveMovie(elem)}
         />
-      )}
+      ))}
     </div>
   );
 }
