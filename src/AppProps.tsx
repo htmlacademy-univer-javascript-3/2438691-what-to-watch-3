@@ -1,5 +1,5 @@
-import {MainPageProps} from '@utils/pages/MainPage/MainPageProps';
+import {promoFilmProps} from '@utils/pages/MainPage/PromoFilmProps.ts';
 
 export type AppProps = {
-  mainWindowData: MainPageProps;
+  mainWindowData: promoFilmProps;
 }

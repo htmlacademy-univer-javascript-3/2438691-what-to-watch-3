@@ -1,4 +1,4 @@
-import {MainPageProps} from './MainPageProps';
+import {promoFilmProps} from './PromoFilmProps.ts';
 import {FilmList} from '@utils/components/FilmList/FilmList';
 import {Logo} from '@utils/components/logo/logo';
 import {GenreList} from '@utils/components/genre-list/genre-list.tsx';
@@ -9,7 +9,7 @@ import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
 import {resetMoviesCount, showMoreAction} from '@utils/store/action.ts';
 import {ShowMore} from '@utils/components/show-more/show-more.tsx';
 
-function MainPage(props: MainPageProps) {
+function MainPage(props: promoFilmProps) {
   const {
     promoFilmTitle,
     promoFilmDate,
@@ -18,7 +18,6 @@ function MainPage(props: MainPageProps) {
   } = props;
 
   const currentGenre = useAppSelector((state) => state.genre);
-
   const filmCount = useAppSelector((state)=>(state.countFilms));
   const listFilms = useAppSelector((state)=>(state.listFilms));
   const dispatch = useAppDispatch();
@@ -93,8 +92,7 @@ function MainPage(props: MainPageProps) {
               <ShowMore onClick={() => {
                 dispatch(showMoreAction());
               }}
-              />)
-          }
+              />)}
         </section>
 
         <footer className="page-footer">

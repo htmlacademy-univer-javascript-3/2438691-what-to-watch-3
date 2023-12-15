@@ -1,4 +1,4 @@
-import {MovieInfo} from '@utils/MovieInfo';
+import {MovieInfo} from '@utils/types/movie-info.ts';
 import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {VideoPlayer} from '@utils/components/VideoPlayer';
@@ -31,10 +31,10 @@ export function FilmCard(props: FilmCardProps) {
       <VideoPlayer
         isPlaying={isPlaying}
         isMuted
-        src={props.playerLink}
-        poster={'markup/img/bg-the-grand-budapest-hotel.jpg'}
+        src={props.videoLink}
+        poster={props.previewImage}
       />
-      {props.title}
+      {props.name}
     </Link>
   );
 }
