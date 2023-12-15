@@ -1,4 +1,4 @@
-import {MovieInfo} from '@utils/MovieInfo';
+
 
 export type MainPageProps =
   {
@@ -6,5 +6,4 @@ export type MainPageProps =
     promoFilmDate: string;
     promoFilmGenre: string;
     promoFilmPoster: JSX.Element;
-    films: MovieInfo[];
   }

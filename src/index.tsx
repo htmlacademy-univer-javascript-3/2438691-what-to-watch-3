@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import {MainPageProps} from '@utils/pages/MainPage/MainPageProps';
-import {Films} from '@utils/mocks/films.ts';
 import {Provider} from 'react-redux';
 import {store} from '@utils/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-const films = Films;
 const mainPageData: MainPageProps = {
   promoFilmDate: '2014',
   promoFilmGenre: 'Drama',
@@ -20,7 +18,6 @@ const mainPageData: MainPageProps = {
       width="218" height="327"
     />,
   promoFilmTitle: 'The Grand Budapest Hotel',
-  films: films
 };
 
 

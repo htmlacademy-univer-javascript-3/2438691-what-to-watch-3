@@ -4,17 +4,27 @@ import {Logo} from '@utils/components/logo/logo';
 import {GenreList} from '@utils/components/genre-list/genre-list.tsx';
 import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
 import {getFilmsByGenre} from '@utils/store/getFilmsByGenre.ts';
+import {useEffect} from 'react';
+import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
+import {resetMoviesCount, showMoreAction} from '@utils/store/action.ts';
+import {ShowMore} from '@utils/components/show-more/show-more.tsx';
 
 function MainPage(props: MainPageProps) {
   const {
     promoFilmTitle,
     promoFilmDate,
     promoFilmGenre,
-    promoFilmPoster,
-    films
+    promoFilmPoster
   } = props;
 
   const currentGenre = useAppSelector((state) => state.genre);
+
+  const filmCount = useAppSelector((state)=>(state.countFilms));
+  const listFilms = useAppSelector((state)=>(state.listFilms));
+  const dispatch = useAppDispatch();
+  useEffect(() => () => {
+    dispatch(resetMoviesCount());
+  }, [dispatch]);
   return (
     <div>
       <section className="film-card">
@@ -77,11 +87,14 @@ function MainPage(props: MainPageProps) {
 
           <GenreList/>
 
-          <FilmList films={getFilmsByGenre(films, currentGenre)}/>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <FilmList films={getFilmsByGenre(listFilms, currentGenre).slice(0, filmCount)}/>
+          {filmCount < getFilmsByGenre(listFilms, currentGenre).length &&
+            (
+              <ShowMore onClick={() => {
+                dispatch(showMoreAction());
+              }}
+              />)
+          }
         </section>
 
         <footer className="page-footer">
