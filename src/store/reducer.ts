@@ -1,12 +1,13 @@
-import {Films} from '../mocks/films.ts';
 import {createReducer} from '@reduxjs/toolkit';
-import {changeGenre, resetMoviesCount, showMoreAction, takeFilms} from './action.ts';
+import {changeGenre, loadFilms, resetMoviesCount, setFilmsLoading, showMoreAction, takeFilms} from './action.ts';
 import {Genre} from '@utils/types/genre.ts';
+import {MovieInfo} from '@utils/types/movie-info.ts';
 
 const initialState = {
   genre: Genre.AllGenres,
-  listFilms: Films,
+  listFilms: [] as MovieInfo[],
   countFilms: 8,
+  isLoading: false,
 };
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -21,8 +22,13 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetMoviesCount, (state) => {
       state.countFilms = initialState.countFilms;
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.listFilms = action.payload;
+    })
+    .addCase(setFilmsLoading, (state, action) => {
+      state.isLoading = action.payload;
     });
-
-
 });
+
 export {reducer};

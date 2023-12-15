@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {MovieInfo} from '@utils/MovieInfo';
+import {MovieInfo} from '@utils/types/movie-info.ts';
 import {Routes} from '@utils/Routes';
 import {InputReview} from '@utils/components/InputReviewText/InputReview';
 import {Logo} from '@utils/components/logo/logo';
@@ -24,7 +24,7 @@ function AddReview(props: AddReviewProps){
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`${Routes.Films}/${props.film.id}`} className="breadcrumbs__link">{props.film.title}</Link>
+                <Link to={`${Routes.Films}/${props.film.id}`} className="breadcrumbs__link">{props.film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -45,7 +45,7 @@ function AddReview(props: AddReviewProps){
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={`../../../markup/img/${props.film.iconName}.jpg`} alt={props.film.title} width="218"
+          <img src={props.film.posterImage} alt={props.film.name} width="218"
             height="327"
           />
         </div>

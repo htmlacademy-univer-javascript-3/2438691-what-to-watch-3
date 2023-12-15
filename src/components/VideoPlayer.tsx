@@ -43,7 +43,7 @@ export function VideoPlayer(props: VideoPlayerProps) {
     }
 
     playerElement.pause();
-  }, [isPlaying, isLoaded]);
+  }, [isPlaying, isLoaded, videoRef]);
 
   return (
     <video

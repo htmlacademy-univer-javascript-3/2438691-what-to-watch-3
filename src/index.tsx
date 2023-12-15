@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import {MainPageProps} from '@utils/pages/MainPage/MainPageProps';
+import {promoFilmProps} from '@utils/pages/MainPage/PromoFilmProps.ts';
 import {Provider} from 'react-redux';
 import {store} from '@utils/store';
+import {fetchFilmsAction} from "@utils/store/api-dispatcher.ts";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-const mainPageData: MainPageProps = {
+const mainPageData: promoFilmProps = {
   promoFilmDate: '2014',
   promoFilmGenre: 'Drama',
   promoFilmPoster:
@@ -21,6 +22,7 @@ const mainPageData: MainPageProps = {
 };
 
 
+store.dispatch(fetchFilmsAction());
 root.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,6 +1,6 @@
 
 
-export type MainPageProps =
+export type promoFilmProps =
   {
     promoFilmTitle: string;
     promoFilmDate: string;

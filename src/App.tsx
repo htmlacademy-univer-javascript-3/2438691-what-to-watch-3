@@ -9,12 +9,16 @@ import AddReview from './pages/AddReview/AddReview';
 import {NotFoundPage} from './pages/NotFoundPage';
 import PrivateRoute from '@utils/pages/PrivateRoute';
 import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
+import {Spinner} from "@utils/components/spinner/spinner.tsx";
 
 function App(props: AppProps) {
   const {mainWindowData} = props;
 
   const listFilms = useAppSelector((state)=>(state.listFilms));
-
+  const isLoading = useAppSelector((state)=>(state.isLoading));
+  if (isLoading) {
+    return (<Spinner/>);
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -42,7 +46,7 @@ function App(props: AppProps) {
           }
           />
           <Route path={'films/:id/review'} element={<AddReview film={listFilms[0]}/>}/>
-          <Route path={'player/:id'} element={<Player playerLink={listFilms[0].playerLink}/>}/>
+          <Route path={'player/:id'} element={<Player playerLink={listFilms[0].videoLink}/>}/>
         </Route>
         <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>

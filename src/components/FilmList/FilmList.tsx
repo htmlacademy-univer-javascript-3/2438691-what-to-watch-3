@@ -1,4 +1,4 @@
-import {MovieInfo} from '@utils/MovieInfo';
+import {MovieInfo} from '@utils/types/movie-info.ts';
 import {FilmCard} from '@utils/components/FilmCard/FilmCard';
 import {useState} from 'react';
 
@@ -14,11 +14,8 @@ export function FilmList(props: FilmListProps){
       {films.map((elem) => (
         <FilmCard
           key={elem.id}
-          id={elem.id}
-          title={elem.title}
-          iconName={elem.iconName}
-          playerLink={elem.playerLink}
           setActive={() => setActiveMovie(elem)}
+          {...elem}
         />
       ))}
     </div>

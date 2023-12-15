@@ -1,4 +1,4 @@
-import {MovieInfo} from '@utils/MovieInfo';
+import {MovieInfo} from '@utils/types/movie-info.ts';
 import {FilmList} from '@utils/components/FilmList/FilmList';
 import {Link} from 'react-router-dom';
 import {Logo} from '@utils/components/logo/logo';
