@@ -8,6 +8,9 @@ import {useEffect} from 'react';
 import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
 import {resetMoviesCount, showMoreAction} from '@utils/store/action.ts';
 import {ShowMore} from '@utils/components/show-more/show-more.tsx';
+import {UserAuthBlock} from "@utils/components/user-auth-block/user-auth-block.tsx";
+import {UnauthorizedUser} from "@utils/components/user-auth-block/unauthorized-block.tsx";
+import {AuthorizationStatus} from "@utils/types/authorization-status.ts";
 
 function MainPage(props: promoFilmProps) {
   const {
@@ -20,6 +23,7 @@ function MainPage(props: promoFilmProps) {
   const currentGenre = useAppSelector((state) => state.genre);
   const filmCount = useAppSelector((state)=>(state.countFilms));
   const listFilms = useAppSelector((state)=>(state.listFilms));
+  const authStatus = useAppSelector((state)=>(state.authorizationStatus));
   const dispatch = useAppDispatch();
   useEffect(() => () => {
     dispatch(resetMoviesCount());
@@ -36,16 +40,7 @@ function MainPage(props: promoFilmProps) {
         <header className="page-header film-card__head">
           <Logo/>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="../../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          {authStatus === AuthorizationStatus.Auth ? <UserAuthBlock/> : <UnauthorizedUser/>}
         </header>
 
         <div className="film-card__wrap">

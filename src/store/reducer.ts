@@ -1,13 +1,23 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeGenre, loadFilms, resetMoviesCount, setFilmsLoading, showMoreAction, takeFilms} from './action.ts';
+import {
+  changeGenre,
+  loadFilms,
+  requireAuthorization,
+  resetMoviesCount,
+  setFilmsLoading,
+  showMoreAction,
+  takeFilms
+} from './action.ts';
 import {Genre} from '@utils/types/genre.ts';
 import {MovieInfo} from '@utils/types/movie-info.ts';
+import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
 
 const initialState = {
   genre: Genre.AllGenres,
   listFilms: [] as MovieInfo[],
   countFilms: 8,
   isLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -28,6 +38,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFilmsLoading, (state, action) => {
       state.isLoading = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 

@@ -4,7 +4,7 @@ import App from './App';
 import {promoFilmProps} from '@utils/pages/MainPage/PromoFilmProps.ts';
 import {Provider} from 'react-redux';
 import {store} from '@utils/store';
-import {fetchFilmsAction} from "@utils/store/api-dispatcher.ts";
+import {fetchAuthStatus, fetchFilmsAction} from "@utils/store/api-dispatcher.ts";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -23,6 +23,7 @@ const mainPageData: promoFilmProps = {
 
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(fetchAuthStatus());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
