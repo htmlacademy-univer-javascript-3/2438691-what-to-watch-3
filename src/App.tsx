@@ -8,9 +8,13 @@ import Player from './pages/Player/Player';
 import AddReview from './pages/AddReview/AddReview';
 import {NotFoundPage} from './pages/NotFoundPage';
 import PrivateRoute from '@utils/pages/PrivateRoute';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
 
 function App(props: AppProps) {
   const {mainWindowData} = props;
+
+  const listFilms = useAppSelector((state)=>(state.listFilms));
+
   return (
     <BrowserRouter>
       <Routes>
@@ -21,25 +25,24 @@ function App(props: AppProps) {
               promoFilmDate={mainWindowData.promoFilmDate}
               promoFilmGenre={mainWindowData.promoFilmGenre}
               promoFilmPoster={mainWindowData.promoFilmPoster}
-              films={mainWindowData.films}
             />
           }
           />
           <Route path={'login'} element={<SignIn/>}/>
           <Route path={'mylist'} element={
             <PrivateRoute>
-              <MyList films={mainWindowData.films}/>
+              <MyList films={listFilms}/>
             </PrivateRoute>
           }
           />
           <Route path={'films/:id'} element={
             <MoviePage
-              film={mainWindowData.films[0]}
+              film={listFilms[0]}
             />
           }
           />
-          <Route path={'films/:id/review'} element={<AddReview film={mainWindowData.films[0]}/>}/>
-          <Route path={'player/:id'} element={<Player playerLink={mainWindowData.films[0].playerLink}/>}/>
+          <Route path={'films/:id/review'} element={<AddReview film={listFilms[0]}/>}/>
+          <Route path={'player/:id'} element={<Player playerLink={listFilms[0].playerLink}/>}/>
         </Route>
         <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>
