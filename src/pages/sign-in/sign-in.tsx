@@ -1,10 +1,10 @@
 import {Logo} from '@utils/components/logo/logo.tsx';
 import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
 import {loginAction} from '@utils/store/api-dispatcher.ts';
-import {useEffect, useState} from 'react';
+import {FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
-import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
+
+import {Routes} from "@utils/types/routes.ts";
 
 type State = {
   email: string;
@@ -13,28 +13,26 @@ type State = {
 
 function SignIn(){
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const [state, setState] = useState<State>({
     email: '',
     password: '',
   });
   const navigate = useNavigate();
-  const onSubmitForm = () => {
+  const onSubmitForm = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault()
     if (state.email.length > 0 && state.password.length > 3) {
-      dispatch(
+      const success = await dispatch(
         loginAction({
           login: state.email,
           password: state.password
         })
       );
+      if (success) {
+        navigate(Routes.MainPage, {replace: true});
+      }
     }
   };
 
-  useEffect(() => {
-    if (authStatus === AuthorizationStatus.Auth){
-      navigate('/');
-    }
-  }, [authStatus, navigate]);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -44,7 +42,7 @@ function SignIn(){
       </header>
 
       <div className="sign-in user-page__content">
-        <form className="sign-in__form" onSubmit={onSubmitForm}>
+        <form className="sign-in__form" onSubmit={(evt) => onSubmitForm(evt)}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -72,7 +70,7 @@ function SignIn(){
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit" >Sign in</button>
+            <button className="sign-in__btn" type="submit">Sign in</button>
           </div>
         </form>
       </div>

@@ -2,12 +2,13 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {
+  addFavouriteMovies,
   getComments,
   getFilm, getPromoFilm,
   getSimilarMovies,
   loadFilms,
   requireAuthorization,
-  setFilmsLoading
+  setFilmsLoading, setUserData
 } from '@utils/store/action.ts';
 import {MovieFullInfo} from '@utils/types/movie-full-info.ts';
 import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
@@ -17,6 +18,7 @@ import {MovieShortInfo} from '@utils/types/movie-short-info.ts';
 import {CommentsProps} from '@utils/types/comments-props.ts';
 import {PromoMovieInfo} from '@utils/types/promo-movie-info.ts';
 import {PostReviewProps} from '@utils/types/post-review-props.ts';
+import {useAppSelector} from "@utils/hooks/use-app-selector.ts";
 
 const loginPath = '/login';
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
@@ -41,7 +43,8 @@ export const fetchAuthStatus = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      await api.get(loginPath);
+      const user = useAppSelector(state => state.userData)
+      await api.get(loginPath, {headers: {"X-token": user?.token ?? ""}});
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
@@ -49,7 +52,7 @@ export const fetchAuthStatus = createAsyncThunk<void, undefined, {
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<boolean, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -58,10 +61,13 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
 
     try {
-      await api.post<UserData>(loginPath, {email, password});
+      const {data} = await api.post<UserData>(loginPath, {email, password});
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUserData(data));
+      return true;
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      return false;
     }
   },
 );
@@ -74,14 +80,13 @@ export const fetchFilmAction = createAsyncThunk<void, string, {
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<MovieFullInfo>(`/films/${id}`);
     dispatch(getFilm(data));
-
   }
 );
 
-export const fetchRelatedMovies = createAsyncThunk<void, string, {
+export const fetchSimilarMovies = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
-}>('data/fetchRelatedMovies', async (id, {dispatch, extra: api}) => {
+}>('data/fetchSimilarMovies', async (id, {dispatch, extra: api}) => {
   const {data} = await api.get<MovieShortInfo[]>(`/films/${id}/similar`);
   dispatch(getSimilarMovies(data));
 });
@@ -112,10 +117,26 @@ export const addReviewAction = createAsyncThunk<CommentsProps[], PostReviewProps
 }>(
   'films/review',
   async ({id, comment, rating}, {dispatch, extra: api}) => {
-    const {data} = await api.post<CommentsProps[]>(`comments/${id}`, {comment, rating});
+    const {data} = await api.post<CommentsProps[]>(`comments/${id}`, {comment, rating}, {});
     dispatch(getComments);
     return data;
   },
 );
 
+export const addToFavourite = createAsyncThunk<void, {id: string, status: number, user: UserData}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'films/favourite-status',
+  async ({id, status, user}, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.post<MovieFullInfo>(`favorite/${id}/${status}`, {}, {headers: {"X-Token": user?.token ?? ""}});
+      dispatch(addFavouriteMovies(data));
+    }
+    finally {
+
+    }
+    },
+);
 

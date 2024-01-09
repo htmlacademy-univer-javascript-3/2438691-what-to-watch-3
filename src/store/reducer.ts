@@ -1,10 +1,11 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
+  addFavouriteMovies,
   changeGenre, getComments, getFilm, getPromoFilm, getSimilarMovies,
   loadFilms,
   requireAuthorization,
   resetMoviesCount,
-  setFilmsLoading,
+  setFilmsLoading, setUserData,
   showMoreAction,
 } from './action.ts';
 import {Genre} from '@utils/types/genre.ts';
@@ -26,6 +27,7 @@ type AppState = {
   film: MovieFullInfo | null;
   similarMovies: MovieShortInfo[];
   comments: CommentsProps[];
+  favouriteMovies: MovieShortInfo[];
 }
 const initialState: AppState = {
   userData: null,
@@ -37,7 +39,8 @@ const initialState: AppState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   film: null,
   similarMovies: [],
-  comments: []
+  comments: [],
+  favouriteMovies: []
 };
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -70,6 +73,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getPromoFilm, (state, action)=>{
       state.promoFilm = action.payload;
+    })
+    .addCase(setUserData, (state, action)=>{
+    state.userData = action.payload;
+    })
+    .addCase(addFavouriteMovies, (state, action)=>{
+      state.favouriteMovies.push(action.payload);
     });
 });
 
