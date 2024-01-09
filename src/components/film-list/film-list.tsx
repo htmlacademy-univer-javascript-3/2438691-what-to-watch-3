@@ -1,4 +1,4 @@
-import {FilmCard} from '@utils/components/FilmCard/FilmCard';
+import {FilmCard} from '@utils/components/film-card/film-card.tsx';
 import {useState} from 'react';
 import {MovieShortInfo} from '@utils/types/movie-short-info.ts';
 

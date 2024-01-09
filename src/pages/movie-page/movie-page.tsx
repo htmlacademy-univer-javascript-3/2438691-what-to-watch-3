@@ -1,12 +1,12 @@
 import {Link, useParams} from 'react-router-dom';
-import {Routes} from '@utils/Routes';
+import {Routes} from '@utils/types/routes.ts';
 import {Logo} from '@utils/components/logo/logo';
 import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
 import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
-import {fetchFilmAction, fetchRelatedMovies} from '@utils/store/api-dispatcher.ts';
+import {fetchFilmAction, fetchSimilarMovies} from '@utils/store/api-dispatcher.ts';
 import {useEffect} from 'react';
-import {FilmList} from '@utils/components/FilmList/FilmList.tsx';
-import {NotFoundPage} from '@utils/pages/NotFoundPage.tsx';
+import {FilmList} from '@utils/components/film-list/film-list.tsx';
+import {NotFoundPage} from '@utils/pages/not-found-page/not-found-page.tsx';
 import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
 import {UnauthorizedUser} from '@utils/components/user-block/unauthorized-block.tsx';
 import {UserAuthBlock} from '@utils/components/user-block/user-auth-block.tsx';
@@ -21,7 +21,7 @@ function MoviePage(){
   useEffect(() => {
     if (id) {
       dispatch(fetchFilmAction(id));
-      dispatch(fetchRelatedMovies(id));
+      dispatch(fetchSimilarMovies(id));
     }
   }, [dispatch, id]);
   if (!film || !id) {
@@ -54,12 +54,12 @@ function MoviePage(){
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <Link className="btn btn--play film-card__button" to={`${Routes.Player}/${id}`}>
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                </Link>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -123,7 +123,7 @@ function MoviePage(){
 
                 <p className="film-card__starring">
                   <strong>
-                    Starring: {film?.starring}
+                    Starring: {film?.starring.join(", ")}
                   </strong>
                 </p>
               </div>

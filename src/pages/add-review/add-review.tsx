@@ -1,9 +1,9 @@
 import {Link, useParams} from 'react-router-dom';
-import {Routes} from '@utils/Routes';
+import {Routes} from '@utils/types/routes.ts';
 import {InputReview} from '@utils/components/input-review/input-review.tsx';
 import {Logo} from '@utils/components/logo/logo';
 import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
-import {NotFoundPage} from '@utils/pages/NotFoundPage.tsx';
+import {NotFoundPage} from '@utils/pages/not-found-page/not-found-page.tsx';
 
 
 function AddReview(){
