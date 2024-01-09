@@ -1,14 +1,18 @@
-import {Link} from 'react-router-dom';
-import {MovieInfo} from '@utils/types/movie-info.ts';
+import {Link, useParams} from 'react-router-dom';
 import {Routes} from '@utils/Routes';
-import {InputReview} from '@utils/components/InputReviewText/InputReview';
+import {InputReview} from '@utils/components/input-review/input-review.tsx';
 import {Logo} from '@utils/components/logo/logo';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
+import {NotFoundPage} from '@utils/pages/NotFoundPage.tsx';
 
-type AddReviewProps = {
-  film: MovieInfo;
-}
-function AddReview(props: AddReviewProps){
 
+function AddReview(){
+  const {id} = useParams<string>();
+
+  const film = useAppSelector((state) => state.film);
+  if (!film || !id) {
+    return <NotFoundPage/>;
+  }
   return(
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -24,7 +28,7 @@ function AddReview(props: AddReviewProps){
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`${Routes.Films}/${props.film.id}`} className="breadcrumbs__link">{props.film.name}</Link>
+                <Link to={`${Routes.Films}/${id}`} className="breadcrumbs__link">{film?.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -45,7 +49,7 @@ function AddReview(props: AddReviewProps){
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={props.film.posterImage} alt={props.film.name} width="218"
+          <img src={film?.posterImage} alt={film?.name} width="218"
             height="327"
           />
         </div>

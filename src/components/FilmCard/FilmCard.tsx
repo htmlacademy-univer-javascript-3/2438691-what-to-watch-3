@@ -1,9 +1,9 @@
-import {MovieInfo} from '@utils/types/movie-info.ts';
 import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import {VideoPlayer} from '@utils/components/VideoPlayer';
+import {VideoPlayer} from '@utils/components/video-player/video-player.tsx';
+import {MovieShortInfo} from '@utils/types/movie-short-info.ts';
 
-export type FilmCardProps = Omit<MovieInfo, 'genre' | 'year'> & {setActive: () => void}
+export type FilmCardProps = MovieShortInfo & {setActive: () => void}
 const SECOND = 1000;
 export function FilmCard(props: FilmCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -31,7 +31,7 @@ export function FilmCard(props: FilmCardProps) {
       <VideoPlayer
         isPlaying={isPlaying}
         isMuted
-        src={props.videoLink}
+        src={props.previewVideoLink}
         poster={props.previewImage}
       />
       {props.name}

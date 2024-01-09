@@ -1,33 +1,50 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
-  changeGenre,
+  changeGenre, getComments, getFilm, getPromoFilm, getSimilarMovies,
   loadFilms,
   requireAuthorization,
   resetMoviesCount,
   setFilmsLoading,
   showMoreAction,
-  takeFilms
 } from './action.ts';
 import {Genre} from '@utils/types/genre.ts';
-import {MovieInfo} from '@utils/types/movie-info.ts';
+import {MovieFullInfo} from '@utils/types/movie-full-info.ts';
 import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
+import {UserData} from '@utils/types/user-data.ts';
+import {MovieShortInfo} from '@utils/types/movie-short-info.ts';
+import {CommentsProps} from '@utils/types/comments-props.ts';
+import {PromoMovieInfo} from '@utils/types/promo-movie-info.ts';
 
-const initialState = {
+type AppState = {
+  userData: UserData | null;
+  genre: Genre;
+  promoFilm: PromoMovieInfo | null;
+  listFilms: MovieShortInfo[];
+  countFilms: number;
+  isLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  film: MovieFullInfo | null;
+  similarMovies: MovieShortInfo[];
+  comments: CommentsProps[];
+}
+const initialState: AppState = {
+  userData: null,
   genre: Genre.AllGenres,
-  listFilms: [] as MovieInfo[],
+  promoFilm: null,
+  listFilms: [],
   countFilms: 8,
   isLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
+  film: null,
+  similarMovies: [],
+  comments: []
 };
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
     })
-    .addCase(takeFilms, (state, action) => {
-      state.listFilms = action.payload;
-    }
-    ).addCase(showMoreAction, (state) => {
+    .addCase(showMoreAction, (state) => {
       state.countFilms = state.countFilms + 4;
     })
     .addCase(resetMoviesCount, (state) => {
@@ -41,6 +58,18 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(getFilm, (state, action) => {
+      state.film = action.payload;
+    })
+    .addCase(getSimilarMovies, (state, action) => {
+      state.similarMovies = action.payload;
+    })
+    .addCase(getComments, (state, action)=>{
+      state.comments = action.payload;
+    })
+    .addCase(getPromoFilm, (state, action)=>{
+      state.promoFilm = action.payload;
     });
 });
 

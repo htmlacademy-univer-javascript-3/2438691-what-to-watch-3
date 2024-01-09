@@ -1,7 +1,10 @@
 import {Logo} from '@utils/components/logo/logo.tsx';
 import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
 import {loginAction} from '@utils/store/api-dispatcher.ts';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
+import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
 
 type State = {
   email: string;
@@ -10,12 +13,14 @@ type State = {
 
 function SignIn(){
   const dispatch = useAppDispatch();
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const [state, setState] = useState<State>({
     email: '',
     password: '',
   });
+  const navigate = useNavigate();
   const onSubmitForm = () => {
-    if(state.email.length > 0 && state.password.length > 0) {
+    if (state.email.length > 0 && state.password.length > 3) {
       dispatch(
         loginAction({
           login: state.email,
@@ -24,6 +29,12 @@ function SignIn(){
       );
     }
   };
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth){
+      navigate('/');
+    }
+  }, [authStatus, navigate]);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -33,7 +44,7 @@ function SignIn(){
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="SignIn#" className="sign-in__form" onSubmit={onSubmitForm}>
+        <form className="sign-in__form" onSubmit={onSubmitForm}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -61,7 +72,7 @@ function SignIn(){
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit">Sign in</button>
+            <button className="sign-in__btn" type="submit" >Sign in</button>
           </div>
         </form>
       </div>

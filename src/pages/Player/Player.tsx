@@ -1,11 +1,26 @@
-export type PlayerProps = {
-  playerLink: string;
-}
+import {useParams} from 'react-router-dom';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
+import {useEffect} from 'react';
+import {fetchFilmAction} from '@utils/store/api-dispatcher.ts';
+import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
+import {NotFoundPage} from '@utils/pages/NotFoundPage.tsx';
 
-export function Player(props: PlayerProps){
+
+export function Player(){
+  const {id} = useParams();
+  const film = useAppSelector((state) => state.film);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmAction(id));
+    }
+  }, [dispatch, id]);
+  if (!film || !id){
+    return <NotFoundPage/>;
+  }
   return (
     <div className="player">
-      <video src={props.playerLink} className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film?.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit">Exit</button>
 

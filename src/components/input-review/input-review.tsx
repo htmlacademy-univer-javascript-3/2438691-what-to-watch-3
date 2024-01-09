@@ -1,4 +1,8 @@
 import {useState} from 'react';
+import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
+import {useParams} from 'react-router-dom';
+import {addReviewAction} from '@utils/store/api-dispatcher.ts';
 
 type State = {
   comment: string;
@@ -6,10 +10,19 @@ type State = {
 }
 
 export function InputReview() {
+  const {id} = useParams<string>();
+  const film = useAppSelector((state) => state.film);
   const [state, setState] = useState<State>({
     comment: '',
     stars: '8'
   });
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = () => {
+    if (film?.id) {
+      dispatch(addReviewAction({id: id!, comment: state.comment, rating: parseInt(state.stars, 10)}));
+    }
+  };
 
   return (
     <div className="add-review">
@@ -102,7 +115,7 @@ export function InputReview() {
             onChange={(event) => setState({...state, comment: event.currentTarget.value})}
           />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button className="add-review__btn" type="submit" onClick={handleSubmit}>Post</button>
           </div>
         </div>
       </form>
