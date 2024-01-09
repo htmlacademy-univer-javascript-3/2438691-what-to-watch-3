@@ -1,14 +1,21 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Genre} from '../types/genre';
-import {MovieInfo} from '@utils/types/movie-info.ts';
-import {AuthorizationStatus} from "@utils/types/authorization-status.ts";
+import {MovieFullInfo} from '@utils/types/movie-full-info.ts';
+import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
+import {MovieShortInfo} from "@utils/types/movie-short-info.ts";
+import {CommentsProps} from "@utils/types/comments-props.ts";
+import {PromoMovieInfo} from "@utils/types/promo-movie-info.ts";
 
 export const changeGenre = createAction<Genre>('genre/change');
-export const takeFilms = createAction<MovieInfo[]>('genre/films');
-
+export const takeFilms = createAction<MovieFullInfo[]>('genre/films');
 export const showMoreAction = createAction('more/films');
 export const resetMoviesCount = createAction('hide/films');
-export const loadFilms = createAction<MovieInfo[]>('load/films');
+export const loadFilms = createAction<MovieShortInfo[]>('load/films');
 export const setFilmsLoading = createAction<boolean>('data/setFilmsDataLoadingStatus');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const login = createAction('user/login');
+export const getFilm = createAction<MovieFullInfo | null>('get/films');
+export const getSimilarMovies = createAction<MovieShortInfo[]>('get/similarMovies');
+export const getComments = createAction<CommentsProps[]>('get/comments');
+export const getPromoFilm = createAction<PromoMovieInfo>('get/promo');
+export const addReview = createAction<CommentsProps[]>('addReview');

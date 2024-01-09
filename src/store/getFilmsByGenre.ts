@@ -1,7 +1,7 @@
 import {Genre} from '../types/genre.ts';
-import {MovieInfo} from '@utils/types/movie-info.ts';
+import {MovieShortInfo} from '@utils/types/movie-short-info.ts';
 
-export const getFilmsByGenre = (films: MovieInfo[], genre: Genre) : MovieInfo[]=> {
+export const getFilmsByGenre = (films: MovieShortInfo[], genre: Genre) : MovieShortInfo[]=> {
   if (genre === 'All genres') {
     return films;
   }

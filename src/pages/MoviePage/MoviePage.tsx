@@ -1,19 +1,38 @@
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {Routes} from '@utils/Routes';
-import {MovieInfo} from '@utils/types/movie-info.ts';
 import {Logo} from '@utils/components/logo/logo';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
+import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
+import {fetchFilmAction, fetchRelatedMovies} from '@utils/store/api-dispatcher.ts';
+import {useEffect} from 'react';
+import {FilmList} from '@utils/components/FilmList/FilmList.tsx';
+import {NotFoundPage} from '@utils/pages/NotFoundPage.tsx';
+import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
+import {UnauthorizedUser} from '@utils/components/user-block/unauthorized-block.tsx';
+import {UserAuthBlock} from '@utils/components/user-block/user-auth-block.tsx';
 
-export type MoviePageProps = {
-  film: MovieInfo;
-}
-function MoviePage(props: MoviePageProps){
-  const {film} = props;
+
+function MoviePage(){
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const film = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.similarMovies);
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmAction(id));
+      dispatch(fetchRelatedMovies(id));
+    }
+  }, [dispatch, id]);
+  if (!film || !id) {
+    return (<NotFoundPage/>);
+  }
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="../../../markup/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={film?.backgroundImage} alt={film?.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -21,24 +40,17 @@ function MoviePage(props: MoviePageProps){
           <header className="page-header film-card__head">
             <Logo/>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="../../../markup/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            {authorizationStatus === AuthorizationStatus.Auth ?
+              <UserAuthBlock/> :
+              <UnauthorizedUser/>}
           </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
+              <h2 className="film-card__title">{film?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
+                <span className="film-card__genre">{film?.genre}</span>
+                <span className="film-card__year">{film?.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -55,7 +67,14 @@ function MoviePage(props: MoviePageProps){
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={`${Routes.Films}/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth
+                  &&
+                  <Link
+                    to={`${Routes.Films}/${id}/review`}
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </Link>}
               </div>
             </div>
           </div>
@@ -65,7 +84,7 @@ function MoviePage(props: MoviePageProps){
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src="../../../markup/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+                src={film?.posterImage} alt={film?.name} width="218"
                 height="327"
               />
             </div>
@@ -86,20 +105,25 @@ function MoviePage(props: MoviePageProps){
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
+                <div className="film-rating__score">{film?.rating}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">{film.descriptionRating}</span>
-                  <span className="film-rating__count">{film.scoresCount} ratings</span>
+                  <span className="film-rating__level">{film?.descriptionRating}</span>
+                  <span className="film-rating__count">{film?.scoresCount} ratings</span>
                 </p>
               </div>
 
               <div className="film-card__text">
-                <p>{film.description}</p>
+                <p>{film?.description}</p>
 
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
+                <p className="film-card__director">
+                  <strong>
+                    Director: {film?.director}
+                  </strong>
+                </p>
 
                 <p className="film-card__starring">
-                  <strong>Starring: {film.starring}
+                  <strong>
+                    Starring: {film?.starring}
                   </strong>
                 </p>
               </div>
@@ -112,58 +136,11 @@ function MoviePage(props: MoviePageProps){
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img
-                  src="../../../markup/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                  alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of
-                  Grindelwald
-                </a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="../../../markup/img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="../../../markup/img/macbeth.jpg" alt="Macbeth" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="../../../markup/img/aviator.jpg" alt="Aviator" width="280" height="175"/>
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
+          <FilmList films={similarFilms}/>
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo/>
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>

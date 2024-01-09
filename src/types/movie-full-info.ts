@@ -1,6 +1,6 @@
 import {Genre} from '@utils/types/genre.ts';
 
-export type MovieInfo = {
+export type MovieFullInfo = {
   posterImage: string;
   previewImage: string;
   backgroundImage: string;

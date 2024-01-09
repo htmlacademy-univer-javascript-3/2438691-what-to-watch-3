@@ -1,4 +1,3 @@
-import {promoFilmProps} from './PromoFilmProps.ts';
 import {FilmList} from '@utils/components/FilmList/FilmList';
 import {Logo} from '@utils/components/logo/logo';
 import {GenreList} from '@utils/components/genre-list/genre-list.tsx';
@@ -8,22 +7,14 @@ import {useEffect} from 'react';
 import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
 import {resetMoviesCount, showMoreAction} from '@utils/store/action.ts';
 import {ShowMore} from '@utils/components/show-more/show-more.tsx';
-import {UserAuthBlock} from "@utils/components/user-auth-block/user-auth-block.tsx";
-import {UnauthorizedUser} from "@utils/components/user-auth-block/unauthorized-block.tsx";
-import {AuthorizationStatus} from "@utils/types/authorization-status.ts";
+import {UserBlock} from '@utils/components/user-block/user-block.tsx';
 
-function MainPage(props: promoFilmProps) {
-  const {
-    promoFilmTitle,
-    promoFilmDate,
-    promoFilmGenre,
-    promoFilmPoster
-  } = props;
-
+function MainPage() {
+  const promoFilm = useAppSelector((state) => state.promoFilm);
   const currentGenre = useAppSelector((state) => state.genre);
-  const filmCount = useAppSelector((state)=>(state.countFilms));
-  const listFilms = useAppSelector((state)=>(state.listFilms));
-  const authStatus = useAppSelector((state)=>(state.authorizationStatus));
+  const filmCount = useAppSelector((state) => (state.countFilms));
+  const listFilms = useAppSelector((state) => (state.listFilms));
+  const authStatus = useAppSelector((state) => (state.authorizationStatus));
   const dispatch = useAppDispatch();
   useEffect(() => () => {
     dispatch(resetMoviesCount());
@@ -32,7 +23,7 @@ function MainPage(props: promoFilmProps) {
     <div>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="../../../markup/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={promoFilm?.previewImage} alt={promoFilm?.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -40,20 +31,24 @@ function MainPage(props: promoFilmProps) {
         <header className="page-header film-card__head">
           <Logo/>
 
-          {authStatus === AuthorizationStatus.Auth ? <UserAuthBlock/> : <UnauthorizedUser/>}
+          <UserBlock authStatus={authStatus}/>
         </header>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              {promoFilmPoster}
+              <img
+                src={promoFilm?.previewImage}
+                alt={promoFilm?.name}
+                width="218" height="327"
+              />,
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilmTitle}</h2>
+              <h2 className="film-card__title">{promoFilm?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilmGenre}</span>
-                <span className="film-card__year">{promoFilmDate}</span>
+                <span className="film-card__genre">{promoFilm?.genre}</span>
+                <span className="film-card__year">{promoFilm?.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -91,13 +86,7 @@ function MainPage(props: promoFilmProps) {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo/>
 
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
