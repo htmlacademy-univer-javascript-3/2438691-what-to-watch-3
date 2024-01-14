@@ -3,7 +3,6 @@ import MainPage from '@utils/pages/main-page/main-page.tsx';
 import SignIn from '@utils/pages/sign-in/sign-in.tsx';
 import MyList from '@utils/pages/my-list/my-list.tsx';
 import MoviePage from '@utils/pages/movie-page/movie-page.tsx';
-
 import AddReview from '@utils/pages/add-review/add-review.tsx';
 import {NotFoundPage} from './pages/not-found-page/not-found-page.tsx';
 import PrivateRoute from '@utils/private-route.tsx';
