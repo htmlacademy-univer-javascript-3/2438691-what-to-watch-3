@@ -2,10 +2,10 @@ import {createAction} from '@reduxjs/toolkit';
 import {Genre} from '../types/genre';
 import {MovieFullInfo} from '@utils/types/movie-full-info.ts';
 import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
-import {MovieShortInfo} from "@utils/types/movie-short-info.ts";
-import {CommentsProps} from "@utils/types/comments-props.ts";
-import {PromoMovieInfo} from "@utils/types/promo-movie-info.ts";
-import {UserData} from "@utils/types/user-data.ts";
+import {MovieShortInfo} from '@utils/types/movie-short-info.ts';
+import {CommentsProps} from '@utils/types/comments-props.ts';
+import {PromoMovieInfo} from '@utils/types/promo-movie-info.ts';
+import {UserData} from '@utils/types/user-data.ts';
 
 export const changeGenre = createAction<Genre>('genre/change');
 export const takeFilms = createAction<MovieFullInfo[]>('genre/films');

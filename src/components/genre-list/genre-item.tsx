@@ -21,6 +21,6 @@ export function GenreItem(props: GenreViewProps) {
       'catalog__genres-item',
       {'catalog__genres-item--active': activeGenre === genreName})}
     >
-      <Link to={'#'} className="catalog__genres-link" onClick={changeGenreHandler}>{genreName}</Link>
+      <Link to={'#'} className="catalog__genres-link" onClick={changeGenreHandler}>{genreName.valueOf()}</Link>
     </li>);
 }

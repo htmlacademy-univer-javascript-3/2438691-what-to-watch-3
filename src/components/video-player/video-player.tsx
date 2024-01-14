@@ -1,39 +1,21 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef} from 'react';
 
 type VideoPlayerProps = {
   isPlaying: boolean;
+  isNeedToActiveVideo: boolean;
   isMuted: boolean;
   src: string;
   poster: string;
 }
 
 export function VideoPlayer(props: VideoPlayerProps) {
-  const { isPlaying, isMuted, src, poster } = props;
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { isPlaying, isNeedToActiveVideo, isMuted, src, poster } = props;
   const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  const handleDataLoaded = () => {
-    setIsLoaded(true);
-  };
 
   useEffect(() => {
     const playerElement = videoRef.current;
 
     if (!playerElement) {
-      return;
-    }
-
-    playerElement.addEventListener('loadeddata', handleDataLoaded);
-
-    return () => {
-      playerElement.removeEventListener('loadeddata', handleDataLoaded);
-    };
-  }, []);
-
-  useEffect(() => {
-    const playerElement = videoRef.current;
-
-    if (!isLoaded || !playerElement) {
       return;
     }
 
@@ -43,16 +25,18 @@ export function VideoPlayer(props: VideoPlayerProps) {
     }
 
     playerElement.pause();
-  }, [isPlaying, isLoaded, videoRef]);
+  }, [isPlaying]);
 
-  return (
-    <video
-      width="280"
-      height="175"
-      muted={isMuted}
-      ref={videoRef}
-      src={src}
-      poster={poster}
-    />
-  );
+  return isNeedToActiveVideo ?
+    (
+      <video
+        width="280"
+        height="175"
+        muted={isMuted}
+        ref={videoRef}
+        src={src}
+        poster={poster}
+      />
+    ) :
+    (<img src={poster} width="280" height="175"/>);
 }

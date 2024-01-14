@@ -55,7 +55,7 @@ function AddReview(){
         </div>
       </div>
 
-      <InputReview/>
+      <InputReview id={id}/>
 
     </section>
   );

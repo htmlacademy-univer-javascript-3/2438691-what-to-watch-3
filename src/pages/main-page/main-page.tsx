@@ -10,7 +10,7 @@ import {ShowMore} from '@utils/components/show-more/show-more.tsx';
 import {UserBlock} from '@utils/components/user-block/user-block.tsx';
 import {Link} from 'react-router-dom';
 import {Routes} from '@utils/types/routes.ts';
-import {addToFavourite} from '@utils/store/api-dispatcher.ts';
+import {addToFavourite, fetchAuthStatus} from '@utils/store/api-dispatcher.ts';
 
 function MainPage() {
   const promoFilm = useAppSelector((state) => state.promoFilm);
@@ -30,12 +30,14 @@ function MainPage() {
 
   useEffect(() => () => {
     dispatch(resetMoviesCount());
-  }, [dispatch]);
+    dispatch(fetchAuthStatus(user));
+  }, [dispatch, user]);
+
   return (
     <div>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={promoFilm?.previewImage} alt={promoFilm?.name}/>
+          <img src={promoFilm?.posterImage} alt={promoFilm?.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -50,7 +52,7 @@ function MainPage() {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={promoFilm?.previewImage}
+                src={promoFilm?.posterImage}
                 alt={promoFilm?.name}
                 width="218" height="327"
               />,
@@ -62,28 +64,32 @@ function MainPage() {
                 <span className="film-card__genre">{promoFilm?.genre}</span>
                 <span className="film-card__year">{promoFilm?.released}</span>
               </p>
+              {promoFilm &&
+                <div className="film-card__buttons">
 
-              <div className="film-card__buttons">
-                <Link
-                  to={`${Routes.Player}/${promoFilm?.id}`}
-                  className="btn btn--play film-card__button"
-                >
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </Link>
-                {user && <button className="btn btn--list film-card__button" type="button"
-                  onClick={() => handleAddToFavourite()}
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">{favouriteMovies.length}</span>
-                </button>}
+                  <Link
+                    to={`${Routes.Player}/${promoFilm?.id}`}
+                    className="btn btn--play film-card__button"
+                  >
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                  </Link>
+                  {user &&
+                  <button
+                    className="btn btn--list film-card__button" type="button"
+                    onClick={() => handleAddToFavourite()}
+                  >
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                    <span>My list</span>
+                    <span className="film-card__count">{favouriteMovies.length}</span>
+                  </button>}
 
-              </div>
+                </div>}
+
             </div>
           </div>
         </div>

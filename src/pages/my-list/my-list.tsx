@@ -1,11 +1,11 @@
 import {FilmList} from '@utils/components/film-list/film-list.tsx';
 import {Logo} from '@utils/components/logo/logo';
-import {UserBlock} from "@utils/components/user-block/user-block.tsx";
-import {useAppSelector} from "@utils/hooks/use-app-selector.ts";
+import {UserBlock} from '@utils/components/user-block/user-block.tsx';
+import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
 
 function MyList(){
-  const authStatus = useAppSelector(state => state.authorizationStatus);
-  const favouriteFilms = useAppSelector(state => state.favouriteMovies);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const favouriteFilms = useAppSelector((state) => state.favouriteMovies);
 
   return (
     <div className="user-page">
