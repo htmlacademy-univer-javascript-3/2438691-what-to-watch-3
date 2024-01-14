@@ -75,7 +75,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.promoFilm = action.payload;
     })
     .addCase(setUserData, (state, action)=>{
-    state.userData = action.payload;
+      state.userData = action.payload;
     })
     .addCase(addFavouriteMovies, (state, action)=>{
       state.favouriteMovies.push(action.payload);

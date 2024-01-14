@@ -3,8 +3,7 @@ import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
 import {loginAction} from '@utils/store/api-dispatcher.ts';
 import {FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-
-import {Routes} from "@utils/types/routes.ts";
+import {Routes} from '@utils/types/routes.ts';
 
 type State = {
   email: string;
@@ -19,7 +18,7 @@ function SignIn(){
   });
   const navigate = useNavigate();
   const onSubmitForm = async (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault()
+    evt.preventDefault();
     if (state.email.length > 0 && state.password.length > 3) {
       const success = await dispatch(
         loginAction({
@@ -42,7 +41,12 @@ function SignIn(){
       </header>
 
       <div className="sign-in user-page__content">
-        <form className="sign-in__form" onSubmit={(evt) => onSubmitForm(evt)}>
+        <form className="sign-in__form" onSubmit={(evt) => {
+          (async () => {
+            await onSubmitForm(evt);
+          })();
+        }}
+        >
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input

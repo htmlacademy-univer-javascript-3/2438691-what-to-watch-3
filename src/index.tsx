@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 );
 
 store.dispatch(fetchFilmsAction());
-store.dispatch(fetchAuthStatus());
+store.dispatch(fetchAuthStatus(null));
 store.dispatch(fetchPromoFilmAction());
 root.render(
   <React.StrictMode>

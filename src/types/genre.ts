@@ -12,4 +12,4 @@ export enum Genre {
 }
 
 
-export const genres: Genre[] = Object.keys(Genre) as Genre[];
+export const genres: Genre[] = Object.values(Genre) as Genre[];

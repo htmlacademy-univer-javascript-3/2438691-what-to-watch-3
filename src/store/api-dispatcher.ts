@@ -4,11 +4,13 @@ import {AxiosInstance} from 'axios';
 import {
   addFavouriteMovies,
   getComments,
-  getFilm, getPromoFilm,
+  getFilm,
+  getPromoFilm,
   getSimilarMovies,
   loadFilms,
   requireAuthorization,
-  setFilmsLoading, setUserData
+  setFilmsLoading,
+  setUserData
 } from '@utils/store/action.ts';
 import {MovieFullInfo} from '@utils/types/movie-full-info.ts';
 import {AuthorizationStatus} from '@utils/types/authorization-status.ts';
@@ -18,7 +20,6 @@ import {MovieShortInfo} from '@utils/types/movie-short-info.ts';
 import {CommentsProps} from '@utils/types/comments-props.ts';
 import {PromoMovieInfo} from '@utils/types/promo-movie-info.ts';
 import {PostReviewProps} from '@utils/types/post-review-props.ts';
-import {useAppSelector} from "@utils/hooks/use-app-selector.ts";
 
 const loginPath = '/login';
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
@@ -35,16 +36,15 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchAuthStatus = createAsyncThunk<void, undefined, {
+export const fetchAuthStatus = createAsyncThunk<void, UserData | null, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
+  async (user, {dispatch, extra: api}) => {
     try {
-      const user = useAppSelector(state => state.userData)
-      await api.get(loginPath, {headers: {"X-token": user?.token ?? ""}});
+      await api.get(loginPath, {headers: {'X-token': user?.token ?? ''}});
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
@@ -123,20 +123,15 @@ export const addReviewAction = createAsyncThunk<CommentsProps[], PostReviewProps
   },
 );
 
-export const addToFavourite = createAsyncThunk<void, {id: string, status: number, user: UserData}, {
+export const addToFavourite = createAsyncThunk<void, {id: string; status: number; user: UserData}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'films/favourite-status',
   async ({id, status, user}, {dispatch, extra: api}) => {
-    try {
-      const {data} = await api.post<MovieFullInfo>(`favorite/${id}/${status}`, {}, {headers: {"X-Token": user?.token ?? ""}});
-      dispatch(addFavouriteMovies(data));
-    }
-    finally {
-
-    }
-    },
+    const {data} = await api.post<MovieFullInfo>(`favorite/${id}/${status}`, {}, {headers: {'X-Token': user?.token ?? ''}});
+    dispatch(addFavouriteMovies(data));
+  },
 );
 

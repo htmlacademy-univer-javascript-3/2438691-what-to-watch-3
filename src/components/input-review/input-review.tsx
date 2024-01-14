@@ -1,16 +1,17 @@
 import {useState} from 'react';
 import {useAppDispatch} from '@utils/hooks/use-app-dispatch.ts';
 import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
-import {useParams} from 'react-router-dom';
 import {addReviewAction} from '@utils/store/api-dispatcher.ts';
 
 type State = {
   comment: string;
   stars: string;
 }
-
-export function InputReview() {
-  const {id} = useParams<string>();
+export type InputReviewProps = {
+  id: string;
+}
+export function InputReview(props: InputReviewProps) {
+  const {id} = props;
   const film = useAppSelector((state) => state.film);
   const [state, setState] = useState<State>({
     comment: '',
@@ -20,7 +21,7 @@ export function InputReview() {
 
   const handleSubmit = () => {
     if (film?.id) {
-      dispatch(addReviewAction({id: id!, comment: state.comment, rating: parseInt(state.stars, 10)}));
+      dispatch(addReviewAction({id: id, comment: state.comment, rating: parseInt(state.stars, 10)}));
     }
   };
 

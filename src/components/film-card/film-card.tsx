@@ -7,29 +7,30 @@ export type FilmCardProps = MovieShortInfo & {setActive: () => void}
 const SECOND = 1000;
 export function FilmCard(props: FilmCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [needToActiveVideo, setNeedToActiveVideo] = useState(false);
+  const [isNeedToActiveVideo, setNeedToActiveVideo] = useState(false);
 
   useEffect(() => {
-    if (needToActiveVideo) {
+    if (isNeedToActiveVideo) {
       const timeout = setTimeout(() => setIsPlaying(true), SECOND);
       return () => clearTimeout(timeout);
     }
-  }, [needToActiveVideo, setIsPlaying]);
+  }, [isNeedToActiveVideo, setIsPlaying]);
   return(
     <Link
       className="small-film-card__link small-film-card catalog__films-card"
       to={`/films/${props.id}`}
-      onMouseOver={() => {
+      onMouseEnter={() => {
         props.setActive();
         setNeedToActiveVideo(true);
       }}
-      onMouseOut={() => {
+      onMouseLeave={() => {
         setNeedToActiveVideo(false);
         setIsPlaying(false);
       }}
     >
       <VideoPlayer
         isPlaying={isPlaying}
+        isNeedToActiveVideo={isNeedToActiveVideo}
         isMuted
         src={props.previewVideoLink}
         poster={props.previewImage}
