@@ -8,7 +8,7 @@ import {NotFoundPage} from './pages/not-found-page/not-found-page.tsx';
 import PrivateRoute from '@utils/private-route.tsx';
 import {useAppSelector} from '@utils/hooks/use-app-selector.ts';
 import {Spinner} from '@utils/components/spinner/spinner.tsx';
-import {Player} from '@utils/pages/Player/player.tsx';
+import {Player} from '@utils/pages/player/player.tsx';
 
 function App() {
   const isLoading = useAppSelector((state)=>(state.isLoading));
@@ -35,7 +35,7 @@ function App() {
           }
           />
           <Route path={'films/:id/review'} element={<AddReview/>}/>
-          <Route path={'Player/:id'} element={<Player/>}/>
+          <Route path={'player/:id'} element={<Player/>}/>
         </Route>
         <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>
